@@ -18,133 +18,181 @@ body{
     text-align:center;
 }
 
-/* تغميق الخلفية */
+/* الخلفية */
 body::before{
     content:"";
     position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.5);
+    inset:0;
+    background:rgba(0,0,0,0.6);
     z-index:-1;
 }
 
+/* العنوان */
 h1{
     color:#ffd166;
-    margin-top:30px;
+    margin-top:40px;
+    font-size:50px;
 }
 
-.subtitle{
-    color:#bcdffb;
+/* الهيرو */
+.hero{
+    padding:90px 20px;
 }
 
+.hero h2{
+    color:#ffd166;
+    font-size:38px;
+}
+
+/* الشبكة */
 .container{
-    max-width:800px;
+    max-width:1100px;
     margin:auto;
-    padding:20px;
+    padding:40px 20px;
+}
+
+.cards-group{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:30px;
 }
 
 /* الكارد */
 .card{
-    background: rgba(255,255,255,0.18);
-    margin-bottom:35px;
-    padding:22px;
-    border-radius:18px;
-    max-width:400px;
-    margin-left:auto;
-    margin-right:auto;
+    background: rgba(255,255,255,0.12);
+    padding:28px;
+    border-radius:26px;
+    transition:0.4s ease;
+    backdrop-filter: blur(12px);
+    box-shadow:0 0 25px rgba(0,0,0,0.25);
 
     opacity:0;
     transform:translateY(40px);
-    transition:0.7s ease;
 }
 
-/* ظهور الكارد */
 .card.show{
     opacity:1;
     transform:translateY(0);
 }
 
-/* عنوان الكارد */
+.card:hover{
+    transform:translateY(-8px);
+}
+
 .card h3{
     color:#ffd166;
 }
 
+.card p{
+    line-height:1.7;
+    font-size:15px;
+}
+
 /* الأزرار */
 button{
-    padding:12px 18px;
+    padding:13px 24px;
     border:none;
     border-radius:30px;
     background:linear-gradient(45deg,#00c3ff,#0088ff);
     color:white;
     cursor:pointer;
-    margin-top:10px;
-    transition:0.3s;
+    margin-top:14px;
 }
 
-button:hover{
-    transform:scale(1.05);
-}
-
-input, select{
-    padding:10px;
-    width:85%;
-    border-radius:10px;
+/* المدخلات */
+textarea,input,select{
+    padding:12px;
+    width:92%;
+    border-radius:14px;
     border:none;
-    margin-top:12px;
+    margin-top:14px;
 }
 
-#aiAnswer,#result,#adviceResult,#planResult{
-    margin-top:15px;
+/* النتائج */
+.result{
+    margin-top:18px;
     color:#ffd166;
     font-weight:bold;
 }
 
-.grade-section{
-    background: rgba(0,0,0,0.35);
+/* الفوتر */
+.footer{
+    background:rgba(0,0,0,0.5);
+    padding:20px;
+    color:#bcdffb;
+    margin-top:70px;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <h1>Smart Study</h1>
-<p class="subtitle">المذاكرة باستخدام الذكاء الاصطناعي</p>
+<p>المذاكرة باستخدام الذكاء الاصطناعي</p>
+
+<div class="hero">
+
+<h2>مصممة لكل فرد في الرحلة التعليمية</h2>
+
+<p>📚 الموقع يساعد الطالب – المعلم – ولي الأمر – المدرسة</p>
+
+</div>
 
 <div class="container">
 
+<div class="cards-group">
+
+<!-- شرح الفئات -->
+<div class="card show">
+<h3>👨‍🎓 كيف يساعد الطالب؟</h3>
+<p>
+📘 شرح الدروس بطريقة مبسطة<br>
+📝 المساعدة في حل الواجبات<br>
+⏳ تنظيم وقت المذاكرة<br>
+💡 نصائح حسب المادة الدراسية
+</p>
+</div>
+
+<div class="card show">
+<h3>👩‍🏫 كيف يساعد المعلم؟</h3>
+<p>
+📖 تبسيط الشرح للطلاب<br>
+🧠 دعم المحتوى التعليمي<br>
+🎯 أفكار لعرض الدرس
+</p>
+</div>
+
+<div class="card show">
+<h3>👨‍👩‍👧 كيف يساعد ولي الأمر؟</h3>
+<p>
+📊 متابعة مستوى الطالب<br>
+📈 معرفة التقدم الدراسي
+</p>
+</div>
+
+<div class="card show">
+<h3>🏫 كيف تساعد المدرسة؟</h3>
+<p>
+🏫 دعم التعليم الذكي<br>
+💡 تحسين تجربة التعلم
+</p>
+</div>
+
+<!-- الذكاء الاصطناعي -->
 <div class="card">
-<h3>الذكاء الاصطناعي</h3>
-<p>يساعدك في الشرح والتلخيص وحل الأسئلة.</p>
-<button onclick="openAI()">💡 اسأل الذكاء الاصطناعي</button>
-<p id="aiAnswer"></p>
+<h3>🤖 الذكاء الاصطناعي</h3>
+
+<input type="text" id="chatInput" placeholder="اكتب سؤالك هنا">
+
+<button onclick="smartChat()">💡 اسأل الذكاء الاصطناعي</button>
+
+<p id="aiAnswer" class="result"></p>
 </div>
 
+<!-- التقييم -->
 <div class="card">
-<h3>أدوات المذاكرة</h3>
-<p>تنظيم الوقت وتحسين الفهم.</p>
-</div>
-
-<div class="card">
-<h3>النصائح المهمة</h3>
-<p>استخدم الذكاء الاصطناعي كمساعد فقط في المذاكرة.</p>
-</div>
-
-<div class="card">
-<h3>تواصل معنا</h3>
-<p>للمساعدة والاستفسار.</p>
-</div>
-
-</div>
-
-<h2 style="color:#ffd166;">📚 تقييم المواد الدراسية</h2>
-
-<div class="card grade-section" style="opacity:1; transform:none;">
-
-<p>اختر المادة:</p>
+<h3>📚 تقييم المواد الدراسية</h3>
 
 <select id="subject">
 <option>اللغة العربية</option>
@@ -156,24 +204,15 @@ input, select{
 <option>الفلسفة</option>
 </select>
 
-<br><br>
-
-<p>اكتب درجتك:</p>
-<input type="number" id="grade" placeholder="اكتب الدرجة">
-
-<br><br>
+<input type="number" id="grade" placeholder="اكتب درجتك">
 
 <button onclick="evaluateGrade()">تقييم</button>
-
-<p id="result"></p>
-
+<p id="result" class="result"></p>
 </div>
 
-<br>
-
-<h2 style="color:#ffd166;">📖 نصائح حسب المادة</h2>
-
-<div class="card" style="opacity:1; transform:none;">
+<!-- النصائح -->
+<div class="card">
+<h3>📖 نصائح حسب المادة</h3>
 
 <select id="adviceSubject">
 <option>اللغة العربية</option>
@@ -185,55 +224,77 @@ input, select{
 <option>الفلسفة</option>
 </select>
 
-<br><br>
-
 <button onclick="giveAdvice()">اعطني نصيحة</button>
-
-<p id="adviceResult"></p>
-
+<p id="adviceResult" class="result"></p>
 </div>
 
-<br>
-
-<h2 style="color:#ffd166;">📖 خطة مذاكرة ذكية</h2>
-
-<div class="card" style="opacity:1; transform:none;">
-
-<select id="planSubject">
-<option>اللغة العربية</option>
-<option>الرياضيات</option>
-<option>اللغة الإنجليزية</option>
-<option>التاريخ</option>
-<option>الجغرافيا</option>
-<option>العلوم</option>
-<option>الفلسفة</option>
-</select>
-
-<br><br>
+<!-- الخطة -->
+<div class="card">
+<h3>📖 خطة مذاكرة ذكية</h3>
 
 <input type="number" id="studyTime" placeholder="مدة المذاكرة بالدقائق">
 
-<br><br>
-
 <button onclick="generatePlan()">إنشاء الخطة</button>
+<p id="planResult" class="result"></p>
+</div>
 
-<p id="planResult"></p>
+<!-- المهام -->
+<div class="card">
+<h3>📅 تنظيم مهام اليوم</h3>
 
+<textarea id="dailyTasks" placeholder="اكتب المهام كل سطر"></textarea>
+
+<input type="number" id="dailyTime" placeholder="الوقت المتاح بالدقائق">
+
+<button onclick="generateDailySchedule()">تنظيم الوقت</button>
+
+<p id="scheduleResult" class="result"></p>
+</div>
+
+</div>
+</div>
+
+<div class="footer">
+Smart Study © 2025  
+الموقع يساعدك في المذاكرة باستخدام الذكاء الاصطناعي
 </div>
 
 <script>
 
-function openAI(){
+/* Animation */
+const cards=document.querySelectorAll(".card");
 
-    let tips=[
-        "📖 قسم المذاكرة على فترات قصيرة.",
-        "🧠 اسألني أسئلة عن الدرس.",
-        "✏️ حل تمارين بعد كل جزء.",
-        "🌙 راجع قبل النوم."
+function revealCards(){
+    cards.forEach(card=>{
+        let top=card.getBoundingClientRect().top;
+        if(top < window.innerHeight-80){
+            card.classList.add("show");
+        }
+    });
+}
+
+window.addEventListener("scroll",revealCards);
+revealCards();
+
+/* شات بسيط */
+function smartChat(){
+
+    let q=document.getElementById("chatInput").value;
+    let result=document.getElementById("aiAnswer");
+
+    if(q===""){
+        result.innerHTML="اكتب السؤال أولاً";
+        return;
+    }
+
+    let responses=[
+        "📚 حاول فهم الفكرة العامة قبل التفاصيل.",
+        "✏️ حل أمثلة مشابهة.",
+        "🧠 اقرأ الدرس مرة أخرى.",
+        "🌙 المراجعة قبل النوم مهمة."
     ];
 
-    document.getElementById("aiAnswer").innerHTML =
-    tips[Math.floor(Math.random()*tips.length)];
+    result.innerHTML=responses[Math.floor(Math.random()*responses.length)];
 }
 
 function evaluateGrade(){
@@ -248,18 +309,10 @@ function evaluateGrade(){
 
     grade=Number(grade);
 
-    if(grade>=85){
-        result.innerHTML="🔥 ممتاز جدًا";
-    }
-    else if(grade>=70){
-        result.innerHTML="👍 جيد جدًا";
-    }
-    else if(grade>=50){
-        result.innerHTML="📚 حاول تذاكر أكثر";
-    }
-    else{
-        result.innerHTML="❤️ مع المذاكرة ستتحسن";
-    }
+    if(grade>=85) result.innerHTML="🔥 ممتاز جدًا";
+    else if(grade>=70) result.innerHTML="👍 جيد جدًا";
+    else if(grade>=50) result.innerHTML="📚 حاول تذاكر أكثر";
+    else result.innerHTML="❤️ مع المذاكرة ستتحسن";
 }
 
 function giveAdvice(){
@@ -267,40 +320,17 @@ function giveAdvice(){
     let subject=document.getElementById("adviceSubject").value;
     let result=document.getElementById("adviceResult");
 
-    let advice="";
+    let advice={
+        "اللغة العربية":"📚 اقرأ النص وافهم الفكرة.",
+        "الرياضيات":"✏️ حل مسائل كثيرة.",
+        "اللغة الإنجليزية":"🧠 استمع للكلمات بصوت مرتفع.",
+        "التاريخ":"📖 اربط الأحداث ببعضها.",
+        "الجغرافيا":"🌍 استخدم الخرائط.",
+        "العلوم":"🔬 افهم التجربة قبل الحفظ.",
+        "الفلسفة":"🤔 حاول فهم المعنى."
+    };
 
-    switch(subject){
-
-        case "اللغة العربية":
-            advice="📚 اقرأ النص وافهم الفكرة قبل الحفظ.";
-            break;
-
-        case "الرياضيات":
-            advice="✏️ حل مسائل كثيرة مع فهم الخطوات.";
-            break;
-
-        case "اللغة الإنجليزية":
-            advice="🧠 حاول سماع الكلمات بصوت مرتفع.";
-            break;
-
-        case "التاريخ":
-            advice="📖 اربط الأحداث ببعضها.";
-            break;
-
-        case "الجغرافيا":
-            advice="🌍 استخدم الخرائط.";
-            break;
-
-        case "العلوم":
-            advice="🔬 افهم التجربة قبل الحفظ.";
-            break;
-
-        case "الفلسفة":
-            advice="🤔 حاول فهم المعنى.";
-            break;
-    }
-
-    result.innerHTML=advice;
+    result.innerHTML=advice[subject];
 }
 
 function generatePlan(){
@@ -315,44 +345,46 @@ function generatePlan(){
 
     time=Number(time);
 
-    if(time<20){
-        result.innerHTML="📚 ذاكر بهدوء لمدة "+time+" دقيقة.";
-    }
-    else{
-        result.innerHTML="✏️ قسم الوقت إلى "+Math.floor(time/2)+" دقيقة مذاكرة + راحة.";
-    }
+    result.innerHTML=
+    "📚 مذاكرة "+Math.floor(time*0.8)+
+    " دقيقة + ⏳ راحة "+Math.floor(time*0.2)+" دقيقة";
 }
 
-const cards=document.querySelectorAll(".card");
+function generateDailySchedule(){
 
-function revealCards(){
-    cards.forEach(card=>{
-        let top=card.getBoundingClientRect().top;
-        let height=window.innerHeight;
+    let tasks=document.getElementById("dailyTasks").value.trim().split("\n");
+    let time=document.getElementById("dailyTime").value;
+    let result=document.getElementById("scheduleResult");
 
-        if(top < height - 100){
-            card.classList.add("show");
-        }
+    if(tasks[0]===""){
+        result.innerHTML="اكتب المهام أولاً";
+        return;
+    }
+
+    if(time===""){
+        result.innerHTML="اكتب الوقت المتاح";
+        return;
+    }
+
+    time=Number(time);
+
+    let perTask=Math.floor((time*0.8)/tasks.length);
+    let rest=Math.floor(time*0.2);
+
+    let table="<table style='margin:auto;color:white'>";
+
+    tasks.forEach(task=>{
+        table+=`<tr><td style='padding:8px;border:1px solid rgba(255,255,255,0.2)'>
+        ⏰ ${perTask} دقيقة → ${task}
+        </td></tr>`;
     });
-}
 
-window.addEventListener("scroll",revealCards);
-revealCards();
+    table+=`<p>⏳ وقت الراحة: ${rest} دقيقة</p>`;
+
+    result.innerHTML=table;
+}
 
 </script>
-<br><br>
-
-<div style="
-background:rgba(0,0,0,0.4);
-padding:15px;
-color:#bcdffb;
-font-size:14px;
-">
-
-Smart Study © 2025  
-الموقع يساعدك في المذاكرة باستخدام الذكاء الاصطناعي
-
-</div>
 
 </body>
-</html>
+    </html>
